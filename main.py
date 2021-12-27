@@ -26,12 +26,6 @@ async def on_ready():
     await bot.change_presence(status=nextcord.Status.online)
     await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name='https://github.com/WonkyPigs/Discord-Ticket-Bot'))
 
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandOnCooldown):
-        embed = nextcord.Embed(title="Chill out dude!", color=0xff2a00 ,description="You are still on cooldown! try again in {:.0f} seconds".format(error.retry_after))
-        await ctx.send(embed=embed)
-
 #### COMMANDS ####
 
 @bot.command(name="menu")
