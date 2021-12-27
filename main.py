@@ -24,6 +24,7 @@ async def on_ready():
     print(f"Help command - '{prefix}help'")
     print("-----------------------------------------")
     await bot.change_presence(status=nextcord.Status.online)
+    await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name='https://github.com/WonkyPigs/Discord-Ticket-Bot'))
 
 @bot.event
 async def on_command_error(ctx, error):

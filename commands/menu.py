@@ -6,7 +6,9 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-ip = os.getenv("SERVER_IP")
+category1 = os.getenv('TICKET_CATEGORY_1')
+category2 = os.getenv('TICKET_CATEGORY_2')
+category3 = os.getenv('TICKET_CATEGORY_3')
 
 class OpenTicketButton(nextcord.ui.View):
     def __init__(self, ctx: commands.Context) -> None:
@@ -39,24 +41,19 @@ class TicketOptionsClass(nextcord.ui.View):
         super().__init__(timeout=120)
         self.value = None
 
-    @nextcord.ui.button(label="General", style=nextcord.ButtonStyle.blurple)
-    async def generalissues(self, button:nextcord.ui.Button, interaction: nextcord.Interaction):
-        self.value = "General Issues"
+    @nextcord.ui.button(label=f"{category1}", style=nextcord.ButtonStyle.blurple)
+    async def ticket_category_1(self, button:nextcord.ui.Button, interaction: nextcord.Interaction):
+        self.value = f"{category1}"
         self.stop()
 
-    @nextcord.ui.button(label="Factions", style=nextcord.ButtonStyle.blurple)
-    async def factionsissues(self, button:nextcord.ui.Button, interaction: nextcord.Interaction):
-        self.value = "Factions Issues"
+    @nextcord.ui.button(label=f"{category2}", style=nextcord.ButtonStyle.blurple)
+    async def ticket_category_2(self, button:nextcord.ui.Button, interaction: nextcord.Interaction):
+        self.value = f"{category2}"
         self.stop()
 
-    @nextcord.ui.button(label="Buycraft", style=nextcord.ButtonStyle.blurple)
-    async def buycraftissues(self, button:nextcord.ui.Button, interaction: nextcord.Interaction):
-        self.value = "Buycraft Issues"
-        self.stop()
-
-    @nextcord.ui.button(label="Player Reports", style=nextcord.ButtonStyle.blurple)
-    async def playerreport(self, button:nextcord.ui.Button, interaction: nextcord.Interaction):
-        self.value = "Player Reports"
+    @nextcord.ui.button(label=f"{category3}", style=nextcord.ButtonStyle.blurple)
+    async def ticket_category_3(self, button:nextcord.ui.Button, interaction: nextcord.Interaction):
+        self.value = f"{category3}"
         self.stop()
 
 ##################################################################################
@@ -68,16 +65,15 @@ async def DisplayTicketMenu(ctx):
 
 async def TicketOptions(ctx):
     view = TicketOptionsClass(ctx)
-    embed = nextcord.Embed(title="Support", description="Please pick a ticket category from the dropdown below to finish creating your ticket.")
+    embed = nextcord.Embed(title="Support", description="Please pick a ticket category from the options below to finish creating your ticket.")
     await ctx.send(embed=embed, view=view)
     await view.wait()
 
     if view.value == None:
-        await ctx.send("You took too long to choose! try again later.")
+        await ctx.send("You took too long to choose! Try again later.")
     
     else:
-        issue = view.value
-        await MakeATicket(ctx, issue)
+        await MakeATicket(ctx, view.value)
 
 async def MakeATicket(ctx, issue):
     try:
@@ -88,7 +84,7 @@ async def MakeATicket(ctx, issue):
         embed = nextcord.Embed(title=f"{issue}", description=f"Hey {ctx.mention}!\n\nThank you for creating a support ticket.\nWhilst you wait for a staff response, in your following message please answer the format to the best of your ability!")
         embed.add_field(name="Format", value="```IGN:\nIssue:\nAnything Else:```")
         embed.add_field(name="Information", value=f"```Category: {issue}\nOpened by: {ctx}```")
-        embed.set_footer(text=f"{ip} | {datetime.datetime.today().day}/{datetime.datetime.today().month}/{datetime.datetime.today().year}")
+        embed.set_footer(text=f"{datetime.datetime.today().day}/{datetime.datetime.today().month}/{datetime.datetime.today().year}")
         await channel.set_permissions(ctx.guild.default_role, send_messages=False, read_messages=False, view_channel=False)
         await channel.set_permissions(ctx, send_messages=True, read_messages=True, view_channel=True)
         await channel.send(embed=embed, view=view)
