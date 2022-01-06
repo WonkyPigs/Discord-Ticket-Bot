@@ -1,2 +1,1 @@
 nextcord==2.0.0a3
-python-dotenv==0.19.1

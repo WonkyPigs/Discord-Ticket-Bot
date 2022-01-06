@@ -2,7 +2,7 @@
 
 - The only command in the bot is 'menu' along with the proper prefix you choose.
 
-- Enter all the correct values in the given ENV file. Make sure to enter ticket category names with proper capitalization to make it appear the same in discord too.
+- Enter all the correct values in the given configuration.json file. Make sure to enter ticket category names with proper capitalization to make it appear the same in discord too.
 
 - Ticket response role is automatically assigned to all people with the ADMINISTRATOR role permissions in the server.
 

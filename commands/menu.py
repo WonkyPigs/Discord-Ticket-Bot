@@ -2,13 +2,13 @@ from datetime import datetime
 import nextcord
 from nextcord.ext import commands
 import asyncio
-from dotenv import load_dotenv
-import os
+import json
 
-load_dotenv()
-category1 = os.getenv('TICKET_CATEGORY_1')
-category2 = os.getenv('TICKET_CATEGORY_2')
-category3 = os.getenv('TICKET_CATEGORY_3')
+with open("configuration.json", "r") as config: 
+	data = json.load(config)
+	category1 = data["TICKET_CATEGORY_1"]
+	category2 = data["TICKET_CATEGORY_2"]
+	category3 = data["TICKET_CATEGORY_3"]
 
 class OpenTicketButton(nextcord.ui.View):
     def __init__(self, ctx: commands.Context) -> None:

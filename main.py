@@ -1,18 +1,20 @@
 import nextcord
 from nextcord.ext import commands
-from dotenv import load_dotenv
-import os
+import json
 
 # importing command files
 from commands.menu import *
 
-load_dotenv()
 
-prefix = os.getenv("PREFIX")
+with open("configuration.json", "r") as config: 
+	data = json.load(config)
+	token = data["BOT_TOKEN"]
+	prefix = data["PREFIX"]
+	owner_id = data["OWNER_ID"]
+
 bot = commands.AutoShardedBot(command_prefix=prefix)
 bot.remove_command('help')
 
-OWNER_ID = int(os.getenv("OWNER_ID"))
 
 #### READY UP AND BOT EVENTS ####
 
@@ -30,10 +32,10 @@ async def on_ready():
 
 @bot.command(name="menu")
 async def TicketMenu(ctx):
-    if ctx.author.id != OWNER_ID:
+    if ctx.author.id != owner_id:
         await ctx.reply("no")
         return
     await DisplayTicketMenu(ctx)
 
 #### MAKE THE BOT COME TO LIFE ####
-bot.run(os.getenv("BOT_TOKEN"))
+bot.run(token)
