@@ -23,19 +23,18 @@ async def on_ready():
     print("-----------------------------------------")
     print(f"{bot.user} has connected to discord!")
     print(f"Prefix set to '{prefix}'")
-    print(f"Help command - '{prefix}help'")
     print("-----------------------------------------")
     await bot.change_presence(status=nextcord.Status.online)
-    await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name='https://github.com/WonkyPigs/Discord-Ticket-Bot'))
+
 
 #### COMMANDS ####
 
 @bot.command(name="menu")
 async def TicketMenu(ctx):
     if ctx.author.id != owner_id:
-        await ctx.reply("no")
+        await ctx.reply("how about no?")
         return
-    await DisplayTicketMenu(ctx)
+    await DisplayTicketMenu(ctx, bot)
 
 #### MAKE THE BOT COME TO LIFE ####
 bot.run(token)

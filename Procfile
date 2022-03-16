@@ -1,1 +1,0 @@
-web: py3 main.py
