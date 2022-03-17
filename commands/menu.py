@@ -71,6 +71,9 @@ async def StartTicket(interaction, bot ):
     guild = bot.get_guild(guild_id)
     channel = await guild.create_text_channel(f"{interaction.user.display_name}")
     embed = nextcord.Embed(title="Choose a reason", description="Please select a reason for your ticket", color=0x11ed11)
+    await channel.set_permissions(guild.default_role, view_channel=False)   
+    await channel.set_permissions(interaction.user, send_messages=True, read_messages=True, view_channel=True)
+    await channel.set_permissions(guild.get_role(ticket_role), send_messages=True, read_messages=True, view_channel=True)
     message = await channel.send(embed=embed)
     await message.edit(content=f"{interaction.user.mention}",embed=embed, view=SelectView(interaction, channel, message, bot))   
 
@@ -85,9 +88,6 @@ async def MakeATicket(interaction, channel, issue, bot):
         embed.add_field(name="Information", value=f"```Category: {issue}\nOpened by: {interaction.user.display_name}```")
         embed.set_footer(text=f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}")
         await channel.send(embed=embed, view=view)
-        await channel.set_permissions(guild.default_role, view_channel=False)   
-        await channel.set_permissions(interaction.user, send_messages=True, read_messages=True, view_channel=True)
-        await channel.set_permissions(guild.get_role(ticket_role), send_messages=True, read_messages=True, view_channel=True)
         await view.wait()
 
         if view.value == "close":
