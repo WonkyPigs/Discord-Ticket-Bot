@@ -57,7 +57,7 @@ class OpenTicketClass(nextcord.ui.View):
         super().__init__(timeout=None)
         self.value = None
 
-    @nextcord.ui.button(label="Open Ticket", style=nextcord.ButtonStyle.blurple)
+    @nextcord.ui.button(label="Open Ticket", style=nextcord.ButtonStyle.blurple, emoji="")
     async def ticket_category_1(self, button:nextcord.ui.Button, interaction: nextcord.Interaction):
         await StartTicket(interaction, self.bot)
 
