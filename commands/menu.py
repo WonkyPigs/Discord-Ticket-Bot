@@ -95,7 +95,7 @@ async def MakeATicket(interaction, channel, issue, bot):
             await channel.send(embed=embed)
             await asyncio.sleep(5)
             if transcript_channel_id != 0:
-                fileName = f"{channel.name}.txt"
+                fileName = f"{issue}-{interaction.user.display_name}.txt"
                 with open(fileName, "w") as file:
                     async for msg in channel.history(limit=None, oldest_first=True):
                         file.write(f"{msg.created_at} - {msg.author.display_name}: {msg.clean_content}\n")
