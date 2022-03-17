@@ -74,7 +74,7 @@ async def StartTicket(interaction, bot ):
     await channel.set_permissions(guild.default_role, view_channel=False)   
     await channel.set_permissions(interaction.user, send_messages=True, read_messages=True, view_channel=True)
     await channel.set_permissions(guild.get_role(ticket_role), send_messages=True, read_messages=True, view_channel=True)
-    message = await channel.send(embed=embed)
+    message = await channel.send(f"{interaction.user.mention}")
     await message.edit(content=f"{interaction.user.mention}",embed=embed, view=SelectView(interaction, channel, message, bot))   
 
 async def MakeATicket(interaction, channel, issue, bot):
