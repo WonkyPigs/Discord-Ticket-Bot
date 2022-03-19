@@ -9,7 +9,6 @@ with open("configuration.json", "r") as config:
     data = json.load(config)
     ticket_role = data["TICKET_ROLE"]
     transcript_channel_id = data["TRANSCRIPTS_CHANNEL_ID"]
-    logging_channel_id = data["LOGGING_CHANNEL_ID"]
     guild_id = data["GUILD_ID"]
     category1 = data["TICKET_CATEGORY_1"]
     category2 = data["TICKET_CATEGORY_2"]
@@ -67,7 +66,7 @@ async def DisplayTicketMenu(ctx, bot):
     embed = nextcord.Embed(title="Create a support ticket", description="In need of support? Just open a ticket below", color=0x11ed11)
     await ctx.send(embed=embed, view=OpenTicketClass(ctx, bot))
 
-async def StartTicket(interaction, bot ):
+async def StartTicket(interaction, bot):
     guild = bot.get_guild(guild_id)
     channel = await guild.create_text_channel(f"{interaction.user.display_name}")
     embed = nextcord.Embed(title="Choose a reason", description="Please select a reason for your ticket", color=0x11ed11)
