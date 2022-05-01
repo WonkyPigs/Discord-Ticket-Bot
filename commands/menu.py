@@ -1,4 +1,3 @@
-from msilib.schema import File
 import nextcord
 from nextcord.ext import commands
 import asyncio
