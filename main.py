@@ -5,7 +5,6 @@ import json
 # importing command files
 from commands.menu import *
 
-
 with open("configuration.json", "r") as config: 
 	data = json.load(config)
 	token = data["BOT_TOKEN"]
@@ -14,7 +13,6 @@ with open("configuration.json", "r") as config:
 
 bot = commands.AutoShardedBot(command_prefix=prefix)
 bot.remove_command('help')
-
 
 #### READY UP AND BOT EVENTS ####
 
@@ -25,7 +23,6 @@ async def on_ready():
     print(f"Prefix set to '{prefix}'")
     print("-----------------------------------------")
     await bot.change_presence(status=nextcord.Status.online)
-
 
 #### COMMANDS ####
 
